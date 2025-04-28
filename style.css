@@ -1,0 +1,132 @@
+* {
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header {
+    background-image: url('/static/cover.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.5em;
+}
+
+main {
+    background-color: #333333;
+    padding-bottom: 30px;
+    text-align: center;
+}
+
+main h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+main p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Menu de Previsão */
+#menu-previsao {
+    background-color: #000000; /* Cor laranja */
+    padding: 20px 0;
+    position: fixed;  /* Fixa o menu no topo */
+    top: 0;  /* Coloca o menu no topo da página */
+    left: 0;
+    width: 100%;  /* Largura total */
+    z-index: 1000;  /* Garante que o menu fique acima de outros elementos */
+}
+
+#menu-previsao ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+#menu-previsao ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+#menu-previsao ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+#menu-previsao ul li a:hover {
+    background-color: #D2691E; /* Cor laranja mais escuro ao passar o mouse */
+    border-radius: 5px;
+}
+
+
+#search-container {
+    margin: 20px;
+    padding-top: 20px;
+}
+
+#city-name {
+    padding: 10px;
+    font-size: 1.2em;
+    width: 250px;
+}
+
+#search-btn {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    background-color: #D2691E;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#search-btn:hover {
+    background-color: #E07B37;
+}
+
+#weather-data {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    background-color: #444444; /* fundo do quadradinho */
+    border-radius: 15px; /* bordas arredondadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* sombra para dar profundidade */
+    color: #ffffff;
+    font-size: 1.2em;
+    text-align: left;
+}
+
+
+footer {
+    background-color: #222;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.8em;
+    width: 100%;  /* Largura total */
+    position: fixed;  /* Fixar o footer na parte inferior */
+    bottom: 0;  /* Alinhar o footer na parte inferior */
+}
