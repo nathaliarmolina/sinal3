@@ -2,49 +2,34 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Sinal de Nuvens</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Previsão para 5 Dias</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<header>
-
-    
-    <div id="menu-previsao">
-        <ul>
-            <li><a href="#">Previsão do Dia</a></li>
-            <li><a href="#">4 Dias</a></li>
-            <li><a href="#">16 Dias</a></li>
-            <li><a href="#">30 Dias</a></li>
-        </ul>
-    </div>
-
-    <div class="overlay">
-        <h1>Sinal de Nuvens</h1>
-        <p>Previsões confiáveis para filmagens offshore</p>
-
-        <div id="search-container">
-            <input type="text" id="city-name" placeholder="Digite o nome da cidade">
-            <button id="search-btn">Buscar</button>
+    <header>
+        <h1>Previsão do Tempo - 5 Dias</h1>
+        <p>Veja a previsão detalhada para os próximos dias</p>
+        <div id="forecast-carousel-container">
+            <!-- Carrossel de Previsão será inserido aqui via JS -->
         </div>
-    
+        <div id="search-elements" style="display: none;">
+            <input type="text" id="city-name-forecast" placeholder="Digite o nome da cidade">
+            <button id="search-forecast-btn">Buscar</button>
+        </div>
+    </header>
 
-    </div>
-</header>
+    <main>
+        <div id="forecast-results" style="display: none;">
+            <button id="new-search-forecast-btn">Nova Busca</button>
+        </div>
+    </main>
 
-<main>
-    
+    <footer>
+        Desenvolvido por Morganna - Projeto Integrador Interdisciplinar
+    </footer>
 
-    <div id="weather-data">
-        <!-- Aqui vamos exibir os dados -->
-    </div>
-</main>
-
-<footer>
-    © 2025 Sinal de Nuvens - Todos os direitos reservados.
-</footer>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/static/script.js"></script> <!-- Link para o arquivo JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='forecast.js') }}"></script>
 </body>
 </html>
