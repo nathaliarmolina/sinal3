@@ -33,10 +33,34 @@ def get_weather():
     return jsonify({'cod': 400, 'message': 'Cidade não informada'})
 
 
+@app.route('/get_forecast', methods=['GET'])
+def get_forecast():
+    city = request.args.get('city')
+
+    if city:
+        url = f"http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric&lang=pt_br"
+        response = requests.get(url)
+        data = response.json()
+
+        if data['cod'] == '200':  # Note que esse cod vem como string
+            return jsonify(data)
+        else:
+            return jsonify({'cod': data['cod'], 'message': data.get('message', 'Cidade não encontrada')})
+
+    return jsonify({'cod': 400, 'message': 'Cidade não informada'})
+
+
 @app.route('/favicon.ico')
 def favicon():
     return '', 204
 
 
+@app.route('/previsao_5_dias')
+def previsao_5_dias():
+    return render_template('previsao_5_dias.html')
+
+
 if __name__ == '__main__':
+    app.run(debug=True)
+
     app.run(debug=True)
