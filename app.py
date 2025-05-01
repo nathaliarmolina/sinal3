@@ -63,4 +63,3 @@ def previsao_5_dias():
 if __name__ == '__main__':
     app.run(debug=True)
 
-    app.run(debug=True)
