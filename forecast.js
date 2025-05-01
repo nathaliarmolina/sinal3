@@ -1,83 +1,113 @@
-$(document).ready(function () {
-    const apiKey = "609fd09f12b961f0a87452bee11f26de";
+const apiKey = '609fd09f12b961f0a87452bee11f26de';
 
-    $("#search-forecast-btn").on("click", function () {
-        const city = $("#city-name-forecast").val().trim();
+document.addEventListener('DOMContentLoaded', () => {
+    const searchBtn = document.getElementById('search-forecast-btn');
+    const newSearchBtn = document.getElementById('new-search-forecast-btn');
+    const cityInput = document.getElementById('city-name-forecast');
+    const forecastContainer = document.getElementById('carousel-container');
+    const forecastSection = document.getElementById('forecast-results');
+    const header = document.querySelector('header');
+    const searchElements = document.getElementById('search-elements');
+    const headerParagraph = document.querySelector('header p');
 
-        if (!city) {
-            alert("Por favor, digite o nome de uma cidade.");
-            return;
-        }
+    let currentIndex = 0;
+    let prevBtn, nextBtn;
 
-        $.ajax({
-            url: `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`,
-            method: "GET",
-            success: function (response) {
-                const forecasts = response.list;
-                const groupedForecasts = [];
+    searchBtn.addEventListener('click', async () => {
+        const city = cityInput.value.trim();
+        if (!city) return alert('Digite o nome de uma cidade.');
 
-                // Agrupar por dia (exibe só um horário por dia, ex: 12h00)
-                forecasts.forEach(forecast => {
-                    const date = new Date(forecast.dt_txt);
-                    const hour = date.getHours();
-                    if (hour === 12) {
-                        groupedForecasts.push(forecast);
-                    }
-                });
+        const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&lang=pt_br&appid=${apiKey}`;
 
-                if (groupedForecasts.length === 0) {
-                    alert("Não foram encontradas previsões para a cidade informada.");
-                    return;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Erro na resposta da API');
+
+            const data = await response.json();
+            const dailyForecasts = data.list.filter(item => item.dt_txt.includes('12:00:00'));
+
+            // Limpa resultados anteriores
+            forecastContainer.innerHTML = '';
+            if (prevBtn) prevBtn.remove();
+            if (nextBtn) nextBtn.remove();
+
+            dailyForecasts.forEach(forecast => {
+                const date = new Date(forecast.dt * 1000).toLocaleDateString('pt-BR');
+                const temperature = Math.round(forecast.main.temp);
+                const condition = forecast.weather[0].description;
+                const humidity = forecast.main.humidity;
+                const windSpeed = Math.round(forecast.wind.speed * 3.6); // m/s para km/h
+
+                const forecastDiv = document.createElement('div');
+                forecastDiv.classList.add('forecast-day');
+                forecastDiv.innerHTML = `
+                    <h3>${data.city.name}</h3>
+                    <p><strong>Data:</strong> ${date}</p>
+                    <p><strong>Temperatura:</strong> ${temperature}°C</p>
+                    <p><strong>Condição:</strong> ${condition}</p>
+                    <p><strong>Umidade:</strong> ${humidity}%</p>
+                    <p><strong>Vento:</strong> ${windSpeed} km/h</p>
+                `;
+                forecastContainer.appendChild(forecastDiv);
+            });
+
+            // Esconde elementos da busca
+            searchElements.style.display = 'none';
+            if (headerParagraph) headerParagraph.style.display = 'none';
+
+            // Mostra carrossel dentro do header
+            forecastSection.style.display = 'block';
+            header.appendChild(forecastSection);
+
+            // Cria botões de navegação funcionais
+            prevBtn = document.createElement('button');
+            prevBtn.id = 'prev-btn';
+            prevBtn.textContent = 'Dia Anterior';
+            prevBtn.onclick = () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showForecastDay(currentIndex);
                 }
+            };
 
-                // Esconder campo de busca e mostrar carrossel
-                $("#search-elements").hide();
-                $("#forecast-results").show();
-                $("#forecast-carousel-container").html("");
+            nextBtn = document.createElement('button');
+            nextBtn.id = 'next-btn';
+            nextBtn.textContent = 'Próximo Dia';
+            nextBtn.onclick = () => {
+                if (currentIndex < forecastContainer.children.length - 1) {
+                    currentIndex++;
+                    showForecastDay(currentIndex);
+                }
+            };
 
-                groupedForecasts.forEach((forecast, index) => {
-                    const date = new Date(forecast.dt_txt);
-                    const day = date.toLocaleDateString("pt-BR", {
-                        weekday: "long",
-                        day: "numeric",
-                        month: "long"
-                    });
+            forecastSection.appendChild(prevBtn);
+            forecastSection.appendChild(nextBtn);
 
-                    const itemHTML = `
-                        <div class="forecast-slide" style="display: ${index === 0 ? 'block' : 'none'}">
-                            <h3>${day}</h3>
-                            <img src="https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="${forecast.weather[0].description}">
-                            <p><strong>${forecast.main.temp}°C</strong></p>
-                            <p>${forecast.weather[0].description}</p>
-                        </div>
-                    `;
-                    $("#forecast-carousel-container").append(itemHTML);
-                });
+            currentIndex = 0;
+            showForecastDay(currentIndex);
 
-                let currentSlide = 0;
-                const slides = $(".forecast-slide");
+        } catch (error) {
+            alert('Erro ao buscar a previsão. Verifique o nome da cidade e tente novamente.');
+            console.error(error);
+        }
+    });
 
-                $("#next-forecast-btn").off().on("click", function () {
-                    slides.eq(currentSlide).hide();
-                    currentSlide = (currentSlide + 1) % slides.length;
-                    slides.eq(currentSlide).show();
-                });
+    newSearchBtn.addEventListener('click', () => {
+        forecastSection.style.display = 'none';
+        searchElements.style.display = 'flex';
+        if (headerParagraph) headerParagraph.style.display = 'block';
+        cityInput.value = '';
+        forecastContainer.innerHTML = '';
+        currentIndex = 0;
+        if (prevBtn) prevBtn.remove();
+        if (nextBtn) nextBtn.remove();
+    });
 
-                $("#prev-forecast-btn").off().on("click", function () {
-                    slides.eq(currentSlide).hide();
-                    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-                    slides.eq(currentSlide).show();
-                });
-            },
-            error: function () {
-                alert("Erro ao buscar os dados. Verifique o nome da cidade.");
-            }
+    function showForecastDay(index) {
+        const days = document.querySelectorAll('.forecast-day');
+        days.forEach((day, i) => {
+            day.style.display = i === index ? 'block' : 'none';
         });
-    });
-
-    $("#new-search-forecast-btn").on("click", function () {
-        $("#forecast-results").hide();
-        $("#search-elements").show();
-        $("#city-name-forecast").val("");
-    });
+    }
 });
+
