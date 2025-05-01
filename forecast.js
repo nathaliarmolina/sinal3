@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
             forecastSection.appendChild(prevBtn);
             forecastSection.appendChild(nextBtn);
 
+            prevBtn.style.display = 'inline-block';
+nextBtn.style.display = 'inline-block';
+
             currentIndex = 0;
             showForecastDay(currentIndex);
 
@@ -122,6 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
 
 
 
