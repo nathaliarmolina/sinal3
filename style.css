@@ -159,7 +159,6 @@ main p {
 }
 
 .forecast-carousel {
-    overflow: hidden;
     position: relative;
     width: 100%;
     max-width: 90%; /* você pode ajustar */
@@ -312,4 +311,6 @@ footer {
     position: fixed;  /* Fixar o footer na parte inferior */
     bottom: 0;  /* Alinhar o footer na parte inferior */
 }
+
+
 
