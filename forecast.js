@@ -125,10 +125,3 @@ nextBtn.style.display = 'inline-block';
         });
     }
 });
-
-
-
-
-
-
-
