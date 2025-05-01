@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const searchElements = document.getElementById('search-elements');
     const headerParagraph = document.querySelector('header p');
+    const forecastTitle = document.getElementById('forecast-title'); // 👇 ADIÇÃO
 
     let currentIndex = 0;
     let prevBtn, nextBtn;
@@ -40,14 +41,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const forecastDiv = document.createElement('div');
                 forecastDiv.classList.add('forecast-day');
+               
+                const iconCode = forecast.weather[0].icon;
+                const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+                
                 forecastDiv.innerHTML = `
                     <h3>${data.city.name}</h3>
+                    <img src="${iconUrl}" alt="${condition}" class="weather-icon">
                     <p><strong>Data:</strong> ${date}</p>
                     <p><strong>Temperatura:</strong> ${temperature}°C</p>
                     <p><strong>Condição:</strong> ${condition}</p>
                     <p><strong>Umidade:</strong> ${humidity}%</p>
                     <p><strong>Vento:</strong> ${windSpeed} km/h</p>
                 `;
+
                 forecastContainer.appendChild(forecastDiv);
             });
 
@@ -58,6 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Mostra carrossel dentro do header
             forecastSection.style.display = 'block';
             header.appendChild(forecastSection);
+
+            // 👇 ADIÇÃO: deixa o título mais discreto
+            if (forecastTitle) forecastTitle.classList.add('discreto');
 
             // Cria botões de navegação funcionais
             prevBtn = document.createElement('button');
@@ -101,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = 0;
         if (prevBtn) prevBtn.remove();
         if (nextBtn) nextBtn.remove();
+
+        // 👇 ADIÇÃO: restaura o estilo original do título
+        if (forecastTitle) forecastTitle.classList.remove('discreto');
     });
 
     function showForecastDay(index) {
