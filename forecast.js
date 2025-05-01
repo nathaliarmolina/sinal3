@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const searchElements = document.getElementById('search-elements');
     const headerParagraph = document.querySelector('header p');
-    const forecastTitle = document.getElementById('forecast-title'); // 👇 ADIÇÃO
+    const forecastTitle = document.getElementById('forecast-title');
 
     let currentIndex = 0;
     let prevBtn, nextBtn;
@@ -41,14 +41,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const forecastDiv = document.createElement('div');
                 forecastDiv.classList.add('forecast-day');
-               
+
                 const iconCode = forecast.weather[0].icon;
                 const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-                
+
                 forecastDiv.innerHTML = `
                     <div class="forecast-header">
-                    <img src="${iconUrl}" alt="${condition}" class="weather-icon">
-                    <h3>${data.city.name}</h3>
+                        <img src="${iconUrl}" alt="${condition}" class="weather-icon">
+                        <h3>${data.city.name}</h3>
                     </div>
                     <p><strong>Data:</strong> ${date}</p>
                     <p><strong>Temperatura:</strong> ${temperature}°C</p>
@@ -68,13 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
             forecastSection.style.display = 'block';
             header.appendChild(forecastSection);
 
-            // 👇 ADIÇÃO: deixa o título mais discreto
             if (forecastTitle) forecastTitle.classList.add('discreto');
 
-            // Cria botões de navegação funcionais
+            // Cria botões com ícones Font Awesome
             prevBtn = document.createElement('button');
             prevBtn.id = 'prev-btn';
-            prevBtn.textContent = 'Dia Anterior';
+            prevBtn.innerHTML = '<i class="fas fa-arrow-left"></i>';
             prevBtn.onclick = () => {
                 if (currentIndex > 0) {
                     currentIndex--;
@@ -84,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             nextBtn = document.createElement('button');
             nextBtn.id = 'next-btn';
-            nextBtn.textContent = 'Próximo Dia';
+            nextBtn.innerHTML = '<i class="fas fa-arrow-right"></i>';
             nextBtn.onclick = () => {
                 if (currentIndex < forecastContainer.children.length - 1) {
                     currentIndex++;
@@ -113,8 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = 0;
         if (prevBtn) prevBtn.remove();
         if (nextBtn) nextBtn.remove();
-
-        // 👇 ADIÇÃO: restaura o estilo original do título
         if (forecastTitle) forecastTitle.classList.remove('discreto');
     });
 
