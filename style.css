@@ -261,20 +261,28 @@ main p {
 }
 
 
-button#next-day-btn, button#prev-day-btn {
-    background-color: #D2691E;
-    color: white;
+#prev-btn, #next-btn {
+    background: transparent;
     border: none;
     cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-button#next-day-btn:hover, button#prev-day-btn:hover {
-    background-color: #E07B37;
-}
-
+    padding: 10px;
+  }
+  
+  #prev-btn i, #next-btn i {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 50%;
+    padding: 12px;
+    font-size: 20px;
+    color: white;
+    transition: transform 0.3s ease;
+  }
+  
+  #prev-btn i:hover, #next-btn i:hover {
+    transform: scale(1.1);
+  }
+  
 
 .weather-icon {
     width: 85px;
@@ -304,3 +312,4 @@ footer {
     position: fixed;  /* Fixar o footer na parte inferior */
     bottom: 0;  /* Alinhar o footer na parte inferior */
 }
+
