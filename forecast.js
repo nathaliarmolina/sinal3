@@ -46,8 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
                 
                 forecastDiv.innerHTML = `
-                    <h3>${data.city.name}</h3>
+                    <div class="forecast-header">
                     <img src="${iconUrl}" alt="${condition}" class="weather-icon">
+                    <h3>${data.city.name}</h3>
+                    </div>
                     <p><strong>Data:</strong> ${date}</p>
                     <p><strong>Temperatura:</strong> ${temperature}°C</p>
                     <p><strong>Condição:</strong> ${condition}</p>
