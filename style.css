@@ -21,6 +21,12 @@ header {
     text-align: center;
 }
 
+#back2 {
+    background-image: url('/static/cover2.jpg');
+    color: black;
+
+}
+
 header h1 {
     font-size: 3em;
     margin: 0;
@@ -29,6 +35,8 @@ header h1 {
 header p {
     font-size: 1.5em;
 }
+
+
 
 main {
     background-color: #333333;
@@ -167,7 +175,7 @@ main p {
     width: 420px;
     padding: 0px 30px 25px 30px; /* topo, dir, baixo, esq */
     border-radius: 10px;
-    color: #fff;
+    color: #000000;
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
@@ -246,12 +254,13 @@ main p {
 #forecast-title.discreto {
     font-size: 22px;
     background: none;
-    color: #f0f0f0;
+    color: #000000;
     text-shadow: none;
     margin-bottom: 10px;
     transition: all 0.3s ease;
 }
 
+/*
 
 button#next-day-btn, button#prev-day-btn {
     background-color: #D2691E;
@@ -267,6 +276,25 @@ button#next-day-btn:hover, button#prev-day-btn:hover {
     background-color: #E07B37;
 }
 
+*/
+
+#prev-day, #next-day {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    padding: 10px 14px;
+    margin: 0 10px;
+    color: #fff;
+    font-size: 18px;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  #prev-day:hover, #next-day:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  
 
 .weather-icon {
     width: 85px;
@@ -296,5 +324,3 @@ footer {
     position: fixed;  /* Fixar o footer na parte inferior */
     bottom: 0;  /* Alinhar o footer na parte inferior */
 }
-
-
