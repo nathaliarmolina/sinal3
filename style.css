@@ -270,14 +270,14 @@ main p {
 #prev-btn, #next-btn {
     border: none;
     outline: none;
-    box-shadow: none;
     border-radius: 10px;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.08); /* um pouco mais escuro que antes */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.1);
     color: white;
     cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* sombra igual à .forecast-day */
     transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -326,6 +326,4 @@ footer {
     position: fixed;  /* Fixar o footer na parte inferior */
     bottom: 0;  /* Alinhar o footer na parte inferior */
 }
-
-
 
